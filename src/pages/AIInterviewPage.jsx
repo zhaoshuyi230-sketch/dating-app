@@ -107,7 +107,7 @@ const AIInterviewPage = () => {
       </div>
 
       {/* 顶部导航栏 */}
-      <div className="p-4 backdrop-blur-md bg-white/60">
+      <div className="p-4 bg-white/60">
         <div className="flex justify-center">
           <div className="flex items-center space-x-2">
             <div className={`w-3 h-3 rounded-full ${messages.length >= 1 ? 'bg-indigo-500' : 'bg-gray-300'}`}></div>
@@ -127,7 +127,7 @@ const AIInterviewPage = () => {
           ))}
           {isLoading && (
             <div className="flex justify-start mb-4">
-              <div className="backdrop-blur-md bg-white/80 p-4 rounded-2xl shadow-sm">
+              <div className="bg-white/80 p-4 rounded-2xl shadow-sm">
                 <div className="flex space-x-1">
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
@@ -141,7 +141,7 @@ const AIInterviewPage = () => {
       </div>
 
       {/* 底部输入区 */}
-      <div className="p-4 backdrop-blur-md bg-white/60 border-t border-gray-200/50">
+      <div className="p-4 bg-white/60 border-t border-gray-200">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center">
             <input
@@ -150,7 +150,7 @@ const AIInterviewPage = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
               placeholder="输入你的回答..."
-              className="flex-1 border border-gray-300 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 backdrop-blur-md bg-white/80"
+              className="flex-1 border border-gray-300 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/80"
             />
             <button
               onClick={handleSend}
