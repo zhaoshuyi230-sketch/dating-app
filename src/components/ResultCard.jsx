@@ -5,24 +5,24 @@ const ResultCard = ({ data }) => {
   const getCardGradient = () => {
     const archetypeName = data.archetype.name;
     if (archetypeName.includes('守望者')) {
-      return 'from-pink-50 to-rose-50'; // 莫兰迪粉
+      return 'linear-gradient(to bottom right, #fdf2f8, #fbcfe8)'; // 莫兰迪粉
     } else if (archetypeName.includes('探险家')) {
-      return 'from-gray-50 to-blue-50'; // 高级灰蓝
+      return 'linear-gradient(to bottom right, #f3f4f6, #dbeafe)'; // 高级灰蓝
     } else if (archetypeName.includes('直球派')) {
-      return 'from-indigo-50 to-purple-50'; // 靛蓝紫
+      return 'linear-gradient(to bottom right, #eeeffe, #e0e7ff)'; // 靛蓝紫
     } else if (archetypeName.includes('浪漫')) {
-      return 'from-rose-50 to-pink-50'; // 浪漫粉
+      return 'linear-gradient(to bottom right, #fff1f2, #fecdd3)'; // 浪漫粉
     } else if (archetypeName.includes('理性')) {
-      return 'from-blue-50 to-cyan-50'; // 理性蓝
+      return 'linear-gradient(to bottom right, #eff6ff, #dbeafe)'; // 理性蓝
     } else {
-      return 'from-indigo-50 to-rose-50'; // 默认渐变
+      return 'linear-gradient(to bottom right, #eeeffe, #fff1f2)'; // 默认渐变
     }
   };
 
   return (
-    <div className={`w-full max-w-md mx-auto bg-gradient-to-br ${getCardGradient()} p-8 rounded-3xl shadow-xl relative overflow-hidden`}>
+    <div className="w-full max-w-md mx-auto p-8 rounded-3xl shadow-xl relative overflow-hidden" style={{ background: getCardGradient() }}>
       {/* 毛玻璃效果叠加层 */}
-      <div className="absolute inset-0 backdrop-blur-sm bg-white/30 rounded-3xl"></div>
+      <div className="absolute inset-0 bg-white/30 rounded-3xl"></div>
       
       {/* 内容容器 */}
       <div className="relative z-10">
@@ -34,7 +34,7 @@ const ResultCard = ({ data }) => {
         {/* 核心特质 */}
         <div className="flex flex-wrap gap-2 justify-center mb-8">
           {data.traits.map((trait, index) => (
-            <span key={index} className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-sm">
+            <span key={index} className="px-4 py-2 bg-white/80 rounded-full shadow-sm">
               {trait}
             </span>
           ))}
@@ -42,7 +42,7 @@ const ResultCard = ({ data }) => {
 
         {/* 偏好与红线 */}
         <div className="grid grid-cols-2 gap-4 mb-8">
-          <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-sm">
+          <div className="bg-white/80 p-4 rounded-xl shadow-sm">
             <h2 className="text-lg font-semibold mb-2 text-indigo-600">最契合伴侣</h2>
             <ul className="text-sm">
               {data.preferences.map((preference, index) => (
@@ -50,7 +50,7 @@ const ResultCard = ({ data }) => {
               ))}
             </ul>
           </div>
-          <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-sm">
+          <div className="bg-white/80 p-4 rounded-xl shadow-sm">
             <h2 className="text-lg font-semibold mb-2 text-rose-600">绝对红线</h2>
             <ul className="text-sm">
               {data.redFlags.map((flag, index) => (
@@ -61,7 +61,7 @@ const ResultCard = ({ data }) => {
         </div>
 
         {/* AI 洞察 */}
-        <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm mb-8">
+        <div className="bg-white/80 p-6 rounded-xl shadow-sm mb-8">
           <p className="italic text-gray-600 text-center">
             "{data.insight}"
           </p>
