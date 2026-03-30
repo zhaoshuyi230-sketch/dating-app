@@ -9,7 +9,7 @@ const ChatBubble = ({ message, isUser, index }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
     >
-      <div className={`max-w-[80%] p-4 rounded-2xl shadow-sm ${isUser ? 'bg-gradient-to-r from-indigo-500 to-indigo-600 text-white' : 'bg-white/40 backdrop-blur-md border border-white/20 text-gray-800'}`}>
+      <div className={`max-w-[80%] p-4 rounded-2xl shadow-sm ${isUser ? 'bg-indigo-500 text-white' : 'bg-white border border-gray-200 text-gray-800'}`}>
         <p className="leading-relaxed">{message}</p>
       </div>
     </motion.div>
