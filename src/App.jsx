@@ -4,7 +4,7 @@ import SocialCardPage from './pages/SocialCardPage';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-indigo-50 font-sans leading-relaxed">
+    <div className="min-h-screen gradient-bg font-sans leading-relaxed">
       <Router>
         <Routes>
           <Route path="/" element={<AIInterviewPage />} />

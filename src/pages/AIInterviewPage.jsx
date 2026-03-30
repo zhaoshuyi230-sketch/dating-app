@@ -95,7 +95,7 @@ const AIInterviewPage = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-rose-50 via-white to-indigo-50">
+    <div className="flex flex-col min-h-screen gradient-bg">
       {/* 顶部进度条 */}
       <div className="h-1 w-full bg-gray-200 overflow-hidden">
         <motion.div 
