@@ -95,9 +95,9 @@ const AIInterviewPage = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen gradient-bg">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-rose-50 flex flex-col items-center relative">
       {/* 顶部进度条 */}
-      <div className="h-1 w-full bg-gray-200 overflow-hidden">
+      <div className="h-1 w-full bg-gray-200 overflow-hidden absolute top-0 left-0 right-0">
         <motion.div 
           className="h-full bg-gradient-to-r from-indigo-500 to-rose-500" 
           style={{ width: `${progress}%` }}
@@ -107,7 +107,7 @@ const AIInterviewPage = () => {
       </div>
 
       {/* 顶部导航栏 */}
-      <div className="p-4 bg-white/60">
+      <div className="w-full max-w-2xl p-4 bg-white/60">
         <div className="flex justify-center">
           <div className="flex items-center space-x-2">
             <div className={`w-3 h-3 rounded-full ${messages.length >= 1 ? 'bg-indigo-500' : 'bg-gray-300'}`}></div>
@@ -120,75 +120,54 @@ const AIInterviewPage = () => {
       </div>
 
       {/* 主聊天气泡区 */}
-      <div className="flex-1 p-4 overflow-y-auto">
-        <div className="max-w-2xl mx-auto space-y-4">
-          {messages.map((msg, index) => (
-            <ChatBubble key={index} message={msg.text} isUser={msg.isUser} index={index} />
-          ))}
-          {isLoading && (
-            <div className="flex justify-start mb-4">
-              <div className="ai-bubble p-4">
-                <div className="loading-dots">
-                  <div className="loading-dot"></div>
-                  <div className="loading-dot"></div>
-                  <div className="loading-dot"></div>
-                </div>
+      <div className="w-full max-w-2xl flex-1 overflow-y-auto p-4 flex flex-col gap-4 pb-28 pt-8">
+        {messages.map((msg, index) => (
+          <ChatBubble key={index} message={msg.text} isUser={msg.isUser} index={index} />
+        ))}
+        {isLoading && (
+          <div className="flex justify-start">
+            <div className="ai-bubble p-4">
+              <div className="loading-dots">
+                <div className="loading-dot"></div>
+                <div className="loading-dot"></div>
+                <div className="loading-dot"></div>
               </div>
             </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* 底部输入区 */}
-      <div className="p-4 bg-white/60 border-t border-gray-200">
-        <div className="max-w-2xl mx-auto">
-          <div className="flex items-center">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="输入你的回答..."
-              className="flex-1 border border-gray-300 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/90 input-primary"
-            />
-            <button
-              onClick={handleSend}
-              className="ml-2 bg-gradient-to-r from-indigo-500 to-rose-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:shadow-lg transition-shadow btn-primary"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-            </button>
-          </div>
+      <div className="fixed bottom-0 w-full max-w-2xl bg-white/80 backdrop-blur-md p-4 border-t border-gray-100">
+        <div className="flex items-center">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+            placeholder="输入你的回答..."
+            className="w-full p-4 rounded-2xl border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
+          <button
+            onClick={handleSend}
+            className="ml-2 bg-gradient-to-r from-indigo-500 to-rose-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+          </button>
         </div>
       </div>
 
-      {/* 右下角悬浮按钮 */}
-      <div className="fixed bottom-20 right-4">
-        <motion.div
-          animate={{ 
-            scale: [1, 1.1, 1],
-            opacity: [0.7, 1, 0.7]
-          }}
-          transition={{ 
-            duration: 2, 
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-rose-500 rounded-full blur-md"
-        />
-        <motion.button
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.3, delay: 1 }}
-          onClick={() => setShowModal(true)}
-          className="relative z-10 bg-gradient-to-r from-indigo-500 to-rose-500 text-white px-4 py-3 rounded-full shadow-lg flex items-center space-x-2 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 btn-primary"
-        >
-          <MessageCircle className="h-5 w-5" />
-          <span className="font-medium">公测反馈</span>
-        </motion.button>
-      </div>
+      {/* 公测反馈按钮 */}
+      <button 
+        onClick={() => setShowModal(true)}
+        className="fixed bottom-24 right-6 bg-gray-900 text-white px-5 py-3 rounded-full shadow-xl hover:bg-gray-800 transition-all flex items-center gap-2"
+      >
+        <MessageCircle className="h-5 w-5" />
+        <span className="font-medium">公测反馈</span>
+      </button>
 
       {/* 弹窗 */}
       {showModal && (
