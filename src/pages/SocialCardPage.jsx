@@ -24,14 +24,26 @@ const SocialCardPage = () => {
   const handleSaveCard = async () => {
     if (cardRef.current) {
       try {
-        const canvas = await html2canvas(cardRef.current);
+        // 调优 html2canvas 配置，确保在微信内置浏览器中成功生成高清 PNG
+        const canvas = await html2canvas(cardRef.current, {
+          scale: 2, // 提高分辨率
+          useCORS: true, // 允许跨域图片
+          logging: false, // 关闭日志
+          backgroundColor: null, // 保持透明背景
+          allowTaint: true, // 允许被污染的画布
+          letterRendering: true // 改善文字渲染
+        });
         const image = canvas.toDataURL('image/png');
         const link = document.createElement('a');
         link.download = '恋爱匹配卡片.png';
         link.href = image;
         link.click();
+        
+        // 提示用户长按保存
+        alert('图片已生成，请长按保存到相册');
       } catch (error) {
         console.error('保存图片失败:', error);
+        alert('保存图片失败，请稍后重试');
       }
     }
   };
@@ -70,15 +82,30 @@ const SocialCardPage = () => {
         transition={{ duration: 0.5, delay: 0.5 }}
         className="mt-8 w-full max-w-md"
       >
-        <button
-          onClick={() => setIsDeepReportOpen(!isDeepReportOpen)}
-          className="w-full bg-white p-4 rounded-xl shadow-md flex justify-between items-center"
-        >
-          <span className="font-semibold text-indigo-600">解锁深度报告</span>
-          <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-indigo-600 transition-transform duration-300 ${isDeepReportOpen ? 'transform rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
+        <div className="relative">
+          {/* 呼吸灯效果 */}
+          <motion.div
+            animate={{ 
+              scale: [1, 1.05, 1],
+              opacity: [0.5, 0.8, 0.5]
+            }}
+            transition={{ 
+              duration: 2, 
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl blur-md"
+          />
+          <button
+            onClick={() => setIsDeepReportOpen(!isDeepReportOpen)}
+            className="relative z-10 w-full bg-white p-4 rounded-xl shadow-md flex justify-between items-center hover:shadow-lg transition-shadow"
+          >
+            <span className="font-semibold text-indigo-600">解锁深度报告</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-indigo-600 transition-transform duration-300 ${isDeepReportOpen ? 'transform rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
         
         {isDeepReportOpen && (
           <motion.div
