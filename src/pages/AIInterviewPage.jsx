@@ -95,7 +95,7 @@ const AIInterviewPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-rose-50 relative flex flex-col items-center">
+    <div className="h-screen w-full flex flex-col bg-gradient-to-br from-indigo-50 via-white to-rose-50 relative overflow-hidden">
       {/* 顶部进度条 */}
       <div className="h-1 w-full bg-gray-200 overflow-hidden absolute top-0 left-0 right-0">
         <motion.div 
@@ -107,7 +107,7 @@ const AIInterviewPage = () => {
       </div>
 
       {/* 顶部导航栏 */}
-      <div className="w-full max-w-2xl p-4 bg-white/60">
+      <div className="w-full max-w-2xl p-4 bg-white/60 mx-auto">
         <div className="flex justify-center">
           <div className="flex items-center space-x-2">
             <div className={`w-3 h-3 rounded-full ${messages.length >= 1 ? 'bg-indigo-500' : 'bg-gray-300'}`}></div>
@@ -119,8 +119,8 @@ const AIInterviewPage = () => {
         </div>
       </div>
 
-      {/* 1. 聊天对话区域 (撑开高度，底部留白防止遮挡) */}
-      <div className="w-full max-w-2xl flex-1 px-4 pt-8 pb-32 flex flex-col gap-4 overflow-y-auto">
+      {/* 1. 聊天记录区 (占满剩余空间，底部留白) */}
+      <div className="flex-1 overflow-y-auto p-4 w-full max-w-2xl mx-auto pb-32 pt-8 flex flex-col gap-4">
         {messages.map((msg, index) => (
           <ChatBubble key={index} message={msg.text} isUser={msg.isUser} index={index} />
         ))}
@@ -138,8 +138,8 @@ const AIInterviewPage = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* 2. 底部悬浮输入区域 (必须用 fixed bottom-0) */}
-      <div className="fixed bottom-0 w-full bg-white/80 backdrop-blur-md border-t border-gray-200 p-4 z-10 flex justify-center">
+      {/* 2. 底部输入区 (死死钉在底部) */}
+      <div className="absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-gray-100 p-4 flex justify-center z-40">
         <div className="w-full max-w-2xl flex gap-2">
           <input 
             type="text"
@@ -158,9 +158,9 @@ const AIInterviewPage = () => {
         </div>
       </div>
 
-      {/* 3. 右下角悬浮反馈按钮 (必须用 fixed right-6 bottom-24) */}
+      {/* 3. 悬浮反馈按钮 (钉在右下角) */}
       <button 
-        className="fixed bottom-24 right-6 bg-gray-900 text-white px-5 py-3 rounded-full shadow-xl z-20 hover:bg-gray-800 transition-all flex items-center gap-2"
+        className="absolute right-6 bottom-24 bg-gray-900 text-white px-5 py-3 rounded-full shadow-xl z-50 hover:bg-gray-800 transition-all"
         onClick={() => setShowModal(true)}
       >
         💬 公测反馈
