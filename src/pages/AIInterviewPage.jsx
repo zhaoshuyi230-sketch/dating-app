@@ -127,11 +127,11 @@ const AIInterviewPage = () => {
           ))}
           {isLoading && (
             <div className="flex justify-start mb-4">
-              <div className="bg-white/80 p-4 rounded-2xl shadow-sm">
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+              <div className="ai-bubble p-4">
+                <div className="loading-dots">
+                  <div className="loading-dot"></div>
+                  <div className="loading-dot"></div>
+                  <div className="loading-dot"></div>
                 </div>
               </div>
             </div>
@@ -150,11 +150,11 @@ const AIInterviewPage = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
               placeholder="输入你的回答..."
-              className="flex-1 border border-gray-300 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/80"
+              className="flex-1 border border-gray-300 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/90 input-primary"
             />
             <button
               onClick={handleSend}
-              className="ml-2 bg-gradient-to-r from-indigo-500 to-rose-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
+              className="ml-2 bg-gradient-to-r from-indigo-500 to-rose-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:shadow-lg transition-shadow btn-primary"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -183,7 +183,7 @@ const AIInterviewPage = () => {
           animate={{ scale: 1 }}
           transition={{ duration: 0.3, delay: 1 }}
           onClick={() => setShowModal(true)}
-          className="relative z-10 bg-gradient-to-r from-indigo-500 to-rose-500 text-white px-4 py-3 rounded-full shadow-lg flex items-center space-x-2 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+          className="relative z-10 bg-gradient-to-r from-indigo-500 to-rose-500 text-white px-4 py-3 rounded-full shadow-lg flex items-center space-x-2 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 btn-primary"
         >
           <MessageCircle className="h-5 w-5" />
           <span className="font-medium">公测反馈</span>
@@ -203,7 +203,7 @@ const AIInterviewPage = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.1 }}
-            className="bg-white rounded-2xl p-6 max-w-md w-full shadow-xl"
+            className="bg-white rounded-2xl p-6 max-w-md w-full shadow-xl glass-card"
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-xl font-bold text-center mb-4">艺序 AI 恋爱避坑教练</h3>
@@ -219,7 +219,7 @@ const AIInterviewPage = () => {
             </div>
             <button
               onClick={() => setShowModal(false)}
-              className="w-full bg-gradient-to-r from-indigo-500 to-rose-500 text-white py-3 rounded-full font-medium hover:opacity-90 transition-opacity"
+              className="w-full bg-gradient-to-r from-indigo-500 to-rose-500 text-white py-3 rounded-full font-medium hover:opacity-90 transition-opacity btn-primary"
             >
               关闭
             </button>
