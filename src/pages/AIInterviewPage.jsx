@@ -95,7 +95,7 @@ const AIInterviewPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-rose-50 flex flex-col items-center relative">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-rose-50 relative flex flex-col items-center">
       {/* 顶部进度条 */}
       <div className="h-1 w-full bg-gray-200 overflow-hidden absolute top-0 left-0 right-0">
         <motion.div 
@@ -119,8 +119,8 @@ const AIInterviewPage = () => {
         </div>
       </div>
 
-      {/* 主聊天气泡区 */}
-      <div className="w-full max-w-2xl flex-1 overflow-y-auto p-4 flex flex-col gap-4 pb-28 pt-8">
+      {/* 1. 聊天对话区域 (撑开高度，底部留白防止遮挡) */}
+      <div className="w-full max-w-2xl flex-1 px-4 pt-8 pb-32 flex flex-col gap-4 overflow-y-auto">
         {messages.map((msg, index) => (
           <ChatBubble key={index} message={msg.text} isUser={msg.isUser} index={index} />
         ))}
@@ -138,38 +138,35 @@ const AIInterviewPage = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* 底部输入区 */}
-      <div className="fixed bottom-0 w-full max-w-2xl bg-white/80 backdrop-blur-md p-4 border-t border-gray-100">
-        <div className="flex items-center">
-          <input
+      {/* 2. 底部悬浮输入区域 (必须用 fixed bottom-0) */}
+      <div className="fixed bottom-0 w-full bg-white/80 backdrop-blur-md border-t border-gray-200 p-4 z-10 flex justify-center">
+        <div className="w-full max-w-2xl flex gap-2">
+          <input 
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             placeholder="输入你的回答..."
-            className="w-full p-4 rounded-2xl border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="flex-1 p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm" 
           />
-          <button
+          <button 
             onClick={handleSend}
-            className="ml-2 bg-gradient-to-r from-indigo-500 to-rose-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
+            className="bg-indigo-600 text-white px-6 py-3 rounded-xl shadow-md hover:bg-indigo-700 transition-colors"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-            </svg>
+            发送
           </button>
         </div>
       </div>
 
-      {/* 公测反馈按钮 */}
+      {/* 3. 右下角悬浮反馈按钮 (必须用 fixed right-6 bottom-24) */}
       <button 
+        className="fixed bottom-24 right-6 bg-gray-900 text-white px-5 py-3 rounded-full shadow-xl z-20 hover:bg-gray-800 transition-all flex items-center gap-2"
         onClick={() => setShowModal(true)}
-        className="fixed bottom-24 right-6 bg-gray-900 text-white px-5 py-3 rounded-full shadow-xl hover:bg-gray-800 transition-all flex items-center gap-2"
       >
-        <MessageCircle className="h-5 w-5" />
-        <span className="font-medium">公测反馈</span>
+        💬 公测反馈
       </button>
-
-      {/* 弹窗 */}
+      
+      {/* 4. 保留原来的 Modal 弹窗代码 */}
       {showModal && (
         <motion.div
           initial={{ opacity: 0 }}
